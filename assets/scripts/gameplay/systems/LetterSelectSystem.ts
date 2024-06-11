@@ -2,6 +2,7 @@ import { EventTouch, Intersection2D, NodeEventType, Vec2 } from "cc";
 import { System } from "db://assets/scripts/gameplay/systems/System";
 import { Entity, LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
 import { CircleLetter } from "db://assets/scripts/gameplay/components/CircleLetter";
+import { ChangeSelectedLettersEventInfo } from "db://assets/scripts/gameplay/entity/EventEntity";
 
 type LetterPointerStatus = "over" | "idle" | "out" | "deselected";
 
@@ -11,7 +12,7 @@ export class LetterSelectSystem extends System {
     private selectedLetters: LetterEntity[] = [];
     private intersectionStatuses: Map<LetterEntity, LetterPointerStatus> = new Map<LetterEntity, LetterPointerStatus>();
 
-    private readonly letterRadius = 67;
+    private readonly letterRadius = 50;
     private readonly pointerRadius = 1;
 
     constructor() {
@@ -42,15 +43,19 @@ export class LetterSelectSystem extends System {
         this.selectedLetters.clear();
         this.letters.forEach(it => this.intersectionStatuses.set(it, "idle"));
         this.emitEvent("letters.downscale", this.letters);
+
+        if (this.letters.length) {
+            this.emitEvent("word.input", this.letters);
+        }
     }
 
     private onPointerMove(e: EventTouch) {
-        const intersected: LetterEntity[] = [];
+        const pointerPosition = e.touch.getUILocation();
 
         this.letters.forEach(it => {
             const original = it.view.node.getWorldPosition();
             const position = new Vec2(original.x, original.y);
-            const intersects = Intersection2D.circleCircle(e.touch.getUILocation(), this.pointerRadius, position, this.letterRadius);
+            const intersects = Intersection2D.circleCircle(pointerPosition, this.pointerRadius, position, this.letterRadius);
 
             const intersectionStatus = this.intersectionStatuses.get(it);
 
@@ -76,6 +81,11 @@ export class LetterSelectSystem extends System {
                 }
             }
         });
+
+        this.engine.emitEvent("letters.changeSelected", {
+            letters: this.selectedLetters,
+            pointer: e.getUILocation()
+        } as ChangeSelectedLettersEventInfo);
     }
 
 }

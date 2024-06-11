@@ -7,6 +7,7 @@ import { GameStartSystem } from "db://assets/scripts/gameplay/systems/GameStartS
 import { LetterSelectSystem } from "db://assets/scripts/gameplay/systems/LetterSelectSystem";
 import { CircleLetterScaleSystem } from "db://assets/scripts/gameplay/systems/CircleLetterScaleSystem";
 import { CircleLettersPlaceSystem } from "db://assets/scripts/gameplay/systems/CircleLettersPlaceSystem";
+import { DrawWordLineSystem } from "db://assets/scripts/gameplay/systems/DrawWordLineSystem";
 
 export class Engine {
 
@@ -27,6 +28,7 @@ export class Engine {
             new LetterSelectSystem().attach(model, this),
             new CircleLetterScaleSystem().attach(model, this),
             new CircleLettersPlaceSystem().attach(model, this),
+            new DrawWordLineSystem().attach(model, this),
         ];
     }
 
