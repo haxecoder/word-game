@@ -2,10 +2,10 @@
   "ver": "1.0.1",
   "importer": "ttf-font",
   "imported": true,
-  "uuid": "fc13b84a-12a4-4265-9aae-1a7cb878b6ad",
+  "uuid": "581168fd-825c-4237-8a2c-8b0d339f3c84",
   "files": [
     ".json",
-    "VAG World.ttf"
+    "vag-world-bold.ttf"
   ],
   "subMetas": {},
   "userData": {}

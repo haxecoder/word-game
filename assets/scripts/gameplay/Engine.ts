@@ -4,6 +4,8 @@ import { System } from "db://assets/scripts/gameplay/systems/System";
 import { EventEntity, EventType } from "db://assets/scripts/gameplay/entity/EventEntity";
 import { InputLockSystem } from "db://assets/scripts/gameplay/systems/InputLockSystem";
 import { GameStartSystem } from "db://assets/scripts/gameplay/systems/GameStartSystem";
+import { LetterSelectSystem } from "db://assets/scripts/gameplay/systems/LetterSelectSystem";
+import { CircleLetterScaleSystem } from "db://assets/scripts/gameplay/systems/CircleLetterScaleSystem";
 
 export class Engine {
 
@@ -21,6 +23,8 @@ export class Engine {
         return [
             new InputLockSystem().attach(model, this),
             new GameStartSystem().attach(model, this),
+            new LetterSelectSystem().attach(model, this),
+            new CircleLetterScaleSystem().attach(model, this),
         ];
     }
 
