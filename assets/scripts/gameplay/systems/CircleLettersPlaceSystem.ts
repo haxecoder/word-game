@@ -1,7 +1,7 @@
 import { System } from "db://assets/scripts/gameplay/systems/System";
 import { LettersCollector } from "db://assets/scripts/utils/LettersCollector";
 import { EventEntity } from "db://assets/scripts/gameplay/entity/EventEntity";
-import { CircleLetter } from "db://assets/scripts/gameplay/components/CircleLetter";
+import { LetterComponent } from "db://assets/scripts/gameplay/components/LetterComponent";
 import { LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
 
 export class CircleLettersPlaceSystem extends System {
@@ -26,7 +26,7 @@ export class CircleLettersPlaceSystem extends System {
             const node = this.model.prefabs.getCircleLetter();
             const entity = this.model.entities.createCircleLetter(node, letter);
 
-            node.getComponent(CircleLetter).setLabel(letter.toUpperCase());
+            node.getComponent(LetterComponent).setLabel(letter.toUpperCase());
 
             this.model.layers.circleLetters.addChild(node);
             node.setPosition(

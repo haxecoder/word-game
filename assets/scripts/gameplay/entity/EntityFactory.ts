@@ -19,4 +19,12 @@ export class EntityFactory {
         };
     }
 
+    public createPreviewLetter(node: Node, letter: string): LetterEntity {
+        return {
+            type: "letter.preview",
+            view: { node },
+            info: { letter }
+        };
+    }
+
 }

@@ -2,7 +2,7 @@ import { System } from "db://assets/scripts/gameplay/systems/System";
 import { LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
 import { EventEntity } from "db://assets/scripts/gameplay/entity/EventEntity";
 import { Tween, tween, Vec3 } from "cc";
-import { CircleLetter } from "db://assets/scripts/gameplay/components/CircleLetter";
+import { LetterComponent } from "db://assets/scripts/gameplay/components/LetterComponent";
 
 type ScaleStatus = "idle" | "upscale" | "downscale";
 
@@ -62,7 +62,7 @@ export class CircleLetterScaleSystem extends System {
 
         tween(it.view.node)
             .to(this.upscaleDuration * this.upscaleSelectRatio, {})
-            .call(() => it.view.node.getComponent(CircleLetter).select())
+            .call(() => it.view.node.getComponent(LetterComponent).select())
             .start();
 
     }
@@ -79,7 +79,7 @@ export class CircleLetterScaleSystem extends System {
 
         tween(it.view.node)
             .to(this.downscaleDuration * this.downscaleDeselectRatio, {})
-            .call(() => it.view.node.getComponent(CircleLetter).deselect())
+            .call(() => it.view.node.getComponent(LetterComponent).deselect())
             .start();
     }
 }

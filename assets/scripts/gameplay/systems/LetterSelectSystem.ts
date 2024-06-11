@@ -1,7 +1,7 @@
 import { EventTouch, Intersection2D, NodeEventType, Vec2 } from "cc";
 import { System } from "db://assets/scripts/gameplay/systems/System";
 import { Entity, LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
-import { CircleLetter } from "db://assets/scripts/gameplay/components/CircleLetter";
+import { LetterComponent } from "db://assets/scripts/gameplay/components/LetterComponent";
 import { ChangeSelectedLettersEventInfo } from "db://assets/scripts/gameplay/entity/EventEntity";
 
 type LetterPointerStatus = "over" | "idle" | "out" | "deselected";
@@ -25,7 +25,7 @@ export class LetterSelectSystem extends System {
         if (entity.type === "letter.circle") {
             this.letters.push(entity as LetterEntity);
 
-            const circleController = entity.view.node.getComponent(CircleLetter);
+            const circleController = entity.view.node.getComponent(LetterComponent);
             circleController.deselect();
 
             this.intersectionStatuses.set(entity as LetterEntity, "idle");

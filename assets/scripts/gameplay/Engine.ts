@@ -8,6 +8,8 @@ import { LetterSelectSystem } from "db://assets/scripts/gameplay/systems/LetterS
 import { CircleLetterScaleSystem } from "db://assets/scripts/gameplay/systems/CircleLetterScaleSystem";
 import { CircleLettersPlaceSystem } from "db://assets/scripts/gameplay/systems/CircleLettersPlaceSystem";
 import { DrawWordLineSystem } from "db://assets/scripts/gameplay/systems/DrawWordLineSystem";
+import { WordPreviewSystem } from "db://assets/scripts/gameplay/systems/WordPreviewSystem";
+import { PreviewLetterAnimateSystem } from "db://assets/scripts/gameplay/systems/PreviewLetterAnimateSystem";
 
 export class Engine {
 
@@ -29,6 +31,8 @@ export class Engine {
             new CircleLetterScaleSystem().attach(model, this),
             new CircleLettersPlaceSystem().attach(model, this),
             new DrawWordLineSystem().attach(model, this),
+            new WordPreviewSystem().attach(model, this),
+            new PreviewLetterAnimateSystem().attach(model, this),
         ];
     }
 

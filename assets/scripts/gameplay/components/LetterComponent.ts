@@ -2,8 +2,8 @@ import { _decorator, Color, Component, Label, Node } from 'cc';
 
 const { ccclass, property } = _decorator;
 
-@ccclass('CircleLetter')
-export class CircleLetter extends Component {
+@ccclass('LetterComponent')
+export class LetterComponent extends Component {
 
     @property(Node)
     private idle: Node;
@@ -28,14 +28,6 @@ export class CircleLetter extends Component {
 
     public setLabel(text: string) {
         this.label.string = text;
-    }
-
-    protected override start() {
-
-    }
-
-    protected override update(deltaTime: number) {
-        
     }
 
 }
