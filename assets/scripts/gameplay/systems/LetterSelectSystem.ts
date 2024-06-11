@@ -41,10 +41,9 @@ export class LetterSelectSystem extends System {
     private onPointerMove(e: EventTouch) {
         this.selectedLetters.clear();
 
-        this.letters.forEach((it, i) => {
+        this.letters.forEach(it => {
             const original = it.view.node.getWorldPosition();
             const position = new Vec2(original.x, original.y);
-
             const intersects = Intersection2D.circleCircle(e.touch.getUILocation(), this.pointerRadius, position, this.letterRadius);
 
             if (intersects) {

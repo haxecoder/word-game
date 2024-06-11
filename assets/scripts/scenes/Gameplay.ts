@@ -1,11 +1,11 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component } from 'cc';
 import { Engine } from "db://assets/scripts/gameplay/Engine";
 import { EntityFactory } from "db://assets/scripts/gameplay/entity/EntityFactory";
 import { EnginePrefabs } from "db://assets/scripts/gameplay/EnginePrefabs";
 import { EngineLayers } from "db://assets/scripts/gameplay/EngineLayers";
 import { EngineModel } from "db://assets/scripts/gameplay/EngineModel";
 
-const { ccclass, property } = _decorator;
+const { ccclass} = _decorator;
 
 @ccclass('Gameplay')
 export class Gameplay extends Component {
