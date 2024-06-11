@@ -1,8 +1,10 @@
 export type EventType =
     "game.start" |
 
-    "letters.upscale" |
-    "letters.downscale" |
+    "letters.upscale" | // LetterEntity[]
+    "letters.downscale" | // LetterEntity[]
+
+    "words.ready" | // string[]
 
     "input.lock" |
     "input.unlock";

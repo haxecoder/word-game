@@ -1,13 +1,15 @@
-import { System } from "db://assets/scripts/gameplay/systems/System";
 import { EventTouch, Intersection2D, NodeEventType, Vec2 } from "cc";
+import { System } from "db://assets/scripts/gameplay/systems/System";
 import { Entity, LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
 import { CircleLetter } from "db://assets/scripts/gameplay/components/CircleLetter";
+
+type LetterPointerStatus = "over" | "idle" | "out" | "deselected";
 
 export class LetterSelectSystem extends System {
 
     private letters: LetterEntity[] = [];
-
     private selectedLetters: LetterEntity[] = [];
+    private intersectionStatuses: Map<LetterEntity, LetterPointerStatus> = new Map<LetterEntity, LetterPointerStatus>();
 
     private readonly letterRadius = 67;
     private readonly pointerRadius = 1;
@@ -24,6 +26,8 @@ export class LetterSelectSystem extends System {
 
             const circleController = entity.view.node.getComponent(CircleLetter);
             circleController.deselect();
+
+            this.intersectionStatuses.set(entity as LetterEntity, "idle");
         }
     }
 
@@ -35,23 +39,43 @@ export class LetterSelectSystem extends System {
     }
 
     private onPointerUp() {
+        this.selectedLetters.clear();
+        this.letters.forEach(it => this.intersectionStatuses.set(it, "idle"));
         this.emitEvent("letters.downscale", this.letters);
     }
 
     private onPointerMove(e: EventTouch) {
-        this.selectedLetters.clear();
+        const intersected: LetterEntity[] = [];
 
         this.letters.forEach(it => {
             const original = it.view.node.getWorldPosition();
             const position = new Vec2(original.x, original.y);
             const intersects = Intersection2D.circleCircle(e.touch.getUILocation(), this.pointerRadius, position, this.letterRadius);
 
+            const intersectionStatus = this.intersectionStatuses.get(it);
+
             if (intersects) {
-                this.selectedLetters.push(it);
+                if (intersectionStatus === "idle") {
+                    this.intersectionStatuses.set(it, "over");
+                    this.selectedLetters.push(it);
+                    this.emitEvent("letters.upscale", [ it ]);
+                }
+
+                if (intersectionStatus === "out") {
+                    this.intersectionStatuses.set(it, "deselected");
+                    this.selectedLetters.remove(it);
+                    this.emitEvent("letters.downscale", [ it ]);
+                }
+            } else {
+                if (intersectionStatus === "over") {
+                    this.intersectionStatuses.set(it, "out");
+                }
+
+                if (intersectionStatus === "deselected") {
+                    this.intersectionStatuses.set(it, "idle");
+                }
             }
         });
-
-        this.emitEvent("letters.upscale", this.selectedLetters);
     }
 
 }

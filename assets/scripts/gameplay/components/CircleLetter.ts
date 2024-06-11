@@ -26,6 +26,10 @@ export class CircleLetter extends Component {
         this.label.color = new Color("#4D4D4D");
     }
 
+    public setLabel(text: string) {
+        this.label.string = text;
+    }
+
     protected override start() {
 
     }

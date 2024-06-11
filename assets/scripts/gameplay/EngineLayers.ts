@@ -9,6 +9,9 @@ export class EngineLayers extends Component {
     public touch: Node;
 
     @property(Node)
-    public letters: Node;
+    public wordsLetters: Node;
+
+    @property(Node)
+    public circleLetters: Node;
 
 }

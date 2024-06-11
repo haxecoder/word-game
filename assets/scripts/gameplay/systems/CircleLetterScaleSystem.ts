@@ -1,7 +1,7 @@
 import { System } from "db://assets/scripts/gameplay/systems/System";
 import { LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
 import { EventEntity } from "db://assets/scripts/gameplay/entity/EventEntity";
-import { tween, Vec3 } from "cc";
+import { Tween, tween, Vec3 } from "cc";
 import { CircleLetter } from "db://assets/scripts/gameplay/components/CircleLetter";
 
 type ScaleStatus = "idle" | "upscale" | "downscale";
@@ -29,23 +29,17 @@ export class CircleLetterScaleSystem extends System {
     private onLetterUpscale(e: EventEntity) {
         const letters = e.info as LetterEntity[];
 
-        letters.forEach(it => {
-            if (this.isUpscaling(it)) {
-                return;
-            }
-            this.upscale(it);
-        });
+        letters
+            .filter(it => !this.isUpscaling(it))
+            .forEach(it => this.upscale(it));
     }
 
     private onLetterDownscale(e: EventEntity) {
         const letters = e.info as LetterEntity[];
-        letters.forEach(it => {
-            if (this.isDownscaling(it)) {
-                return;
-            }
 
-            this.downscale(it);
-        });
+        letters
+            .filter(it => !this.isDownscaling(it))
+            .forEach(it => this.downscale(it));
     }
 
     private isUpscaling(it: LetterEntity) {
@@ -59,14 +53,16 @@ export class CircleLetterScaleSystem extends System {
     private upscale(it: LetterEntity) {
         this.statuses.set(it, "upscale");
 
-        tween(it.view.node)
-            .to(this.upscaleDuration * this.upscaleSelectRatio, {})
-            .call(() => it.view.node.getComponent(CircleLetter).select())
-            .start();
+        Tween.stopAllByTarget(it.view.node);
 
         tween(it.view.node)
             .to(this.upscaleDuration, { scale: new Vec3(this.upscaleScale, this.upscaleScale) }, { easing: 'linear'})
             .call(() => this.statuses.set(it, "idle"))
+            .start();
+
+        tween(it.view.node)
+            .to(this.upscaleDuration * this.upscaleSelectRatio, {})
+            .call(() => it.view.node.getComponent(CircleLetter).select())
             .start();
 
     }
@@ -74,13 +70,15 @@ export class CircleLetterScaleSystem extends System {
     private downscale(it: LetterEntity) {
         this.statuses.set(it, "downscale");
 
+        Tween.stopAllByTarget(it.view.node);
+
         tween(it.view.node)
             .to(this.downscaleDuration, { scale: new Vec3(this.normalScale, this.normalScale) }, { easing: 'linear' })
             .call(() => this.statuses.set(it, "idle"))
             .start();
 
         tween(it.view.node)
-            .to(this.upscaleDuration * this.downscaleDeselectRatio, {})
+            .to(this.downscaleDuration * this.downscaleDeselectRatio, {})
             .call(() => it.view.node.getComponent(CircleLetter).deselect())
             .start();
     }
