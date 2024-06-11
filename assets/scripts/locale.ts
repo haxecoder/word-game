@@ -7,6 +7,11 @@ class AppLocale {
     }
 
     private init() {
+        // TODO: get user language
+        this.initRu();
+    }
+
+    private initRu() {
 
     }
 
