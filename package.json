@@ -3,5 +3,12 @@
   	"uuid": "3b605f63-2c16-45fa-a950-1070461da7b5",
   	"creator": {
     	"version": "3.8.2"
-  	}
+  	},
+	"scripts": {
+		"test": "vitest --config tests/vitest.config.ts"
+	},
+	"devDependencies": {
+		"@types/node": "^20.12.7",
+		"vitest": "^1.5.0"
+	}
 }
