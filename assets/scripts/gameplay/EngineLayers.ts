@@ -14,7 +14,4 @@ export class EngineLayers extends Component {
     @property(Node)
     public circleLetters: Node;
 
-    @property(Node)
-    public drawLayer: Node;
-
 }

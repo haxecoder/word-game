@@ -11,13 +11,12 @@ export class DrawWordLineSystem extends System {
     constructor() {
         super();
 
-
         this.listen("letters.changeSelected", this.onChangeSelectedLetters);
         this.listen("word.input", this.onWordInput);
     }
 
-    private onWordInput(e: EventEntity) {
-        const graphics = this.model.layers.drawLayer.getComponent(Graphics);
+    private onWordInput() {
+        const graphics = this.model.layers.circleLetters.getComponent(Graphics);
         graphics.clear();
     }
 
@@ -32,13 +31,13 @@ export class DrawWordLineSystem extends System {
 
         this.savedLetters = e.info.letters.slice();
 
-        const uiTransform = this.model.layers.drawLayer.getComponent(UITransform)
+        const uiTransform = this.model.layers.circleLetters.getComponent(UITransform)
         const pointer = uiTransform.convertToNodeSpaceAR(new Vec3(e.info.pointer.x, e.info.pointer.y));
 
-        const graphics = this.model.layers.drawLayer.getComponent(Graphics);
+        const graphics = this.model.layers.circleLetters.getComponent(Graphics);
 
         graphics.clear();
-        graphics.lineWidth = 20;
+        graphics.lineWidth = 21;
 
         this.savedLetters.forEach((it, index) => {
             const point1 = it.view.node.position;

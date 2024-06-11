@@ -66,10 +66,10 @@ export class LetterSelectSystem extends System {
                     this.emitEvent("letters.upscale", [ it ]);
                 }
 
-                if (intersectionStatus === "out") {
-                    this.intersectionStatuses.set(it, "deselected");
-                    this.selectedLetters.remove(it);
-                    this.emitEvent("letters.downscale", [ it ]);
+                if (intersectionStatus === "out" && this.selectedLetters.indexOf(it) === this.selectedLetters.length - 2) {
+                    const deselected = this.selectedLetters.pop();
+                    this.intersectionStatuses.set(deselected, "deselected");
+                    this.emitEvent("letters.downscale", [ deselected ]);
                 }
             } else {
                 if (intersectionStatus === "over") {
