@@ -4,6 +4,7 @@ import { EntityFactory } from "db://assets/scripts/gameplay/entity/EntityFactory
 import { EnginePrefabs } from "db://assets/scripts/gameplay/EnginePrefabs";
 import { EngineLayers } from "db://assets/scripts/gameplay/EngineLayers";
 import { EngineModel } from "db://assets/scripts/gameplay/EngineModel";
+import { app } from "db://assets/scripts/app";
 
 const { ccclass} = _decorator;
 
@@ -21,7 +22,10 @@ export class Gameplay extends Component {
             new EntityFactory()
         );
 
-        this.engine.init(model);
+        this.engine.init(model, {
+            wordsProvider: app.levels
+        });
+
         this.engine.start();
     }
 

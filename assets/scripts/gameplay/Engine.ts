@@ -11,6 +11,11 @@ import { DrawWordLineSystem } from "db://assets/scripts/gameplay/systems/DrawWor
 import { WordPreviewSystem } from "db://assets/scripts/gameplay/systems/WordPreviewSystem";
 import { PreviewLetterAnimateSystem } from "db://assets/scripts/gameplay/systems/PreviewLetterAnimateSystem";
 import { SwapLettersSystem } from "db://assets/scripts/gameplay/systems/SwapLettersSystem";
+import { ILevelWordsProvider } from "db://assets/scripts/services/ILevelWordsProvider";
+
+type ModelInitOptions = {
+    wordsProvider: ILevelWordsProvider;
+};
 
 export class Engine {
 
@@ -18,16 +23,16 @@ export class Engine {
     private systems: System[];
     private entities: Entity[];
 
-    public init(model: EngineModel) {
+    public init(model: EngineModel, opts: ModelInitOptions) {
         this.model = model;
-        this.systems = this.createSystems(this.model);
+        this.systems = this.createSystems(this.model, opts);
         this.entities = [];
     }
 
-    private createSystems(model: EngineModel): System[] {
+    private createSystems(model: EngineModel, opts: ModelInitOptions): System[] {
         return [
             new InputLockSystem().attach(model, this),
-            new GameStartSystem().attach(model, this),
+            new GameStartSystem(opts.wordsProvider).attach(model, this),
             new LetterSelectSystem().attach(model, this),
             new CircleLetterScaleSystem().attach(model, this),
             new CircleLettersPlaceSystem().attach(model, this),

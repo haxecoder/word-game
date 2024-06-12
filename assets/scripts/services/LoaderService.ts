@@ -1,6 +1,7 @@
 import { JsonAsset, resources } from "cc";
+import { ILevelLoader } from "db://assets/scripts/services/ILevelLoader";
 
-export class LoaderService {
+export class LoaderService implements ILevelLoader {
 
     async loadLevel(levelId: number) {
         const realLevelId = levelId % 3 || 3;
