@@ -14,9 +14,12 @@ import { SwapLettersSystem } from "db://assets/scripts/gameplay/systems/SwapLett
 import { ILevelWordsProvider } from "db://assets/scripts/services/ILevelWordsProvider";
 import { WordLettersPlaceSystem } from "db://assets/scripts/gameplay/systems/WordLettersPlaceSystem";
 import { ExpiredSessionSystem } from "db://assets/scripts/gameplay/systems/ExpiredSessionSystem";
+import { WordAcceptSystem } from "db://assets/scripts/gameplay/systems/WordAcceptSystem";
+import { IUserDataRepository } from "db://assets/scripts/services/IUserDataRepository";
 
 type ModelInitOptions = {
     wordsProvider: ILevelWordsProvider;
+    user: IUserDataRepository;
 };
 
 export class Engine {
@@ -34,7 +37,7 @@ export class Engine {
     private createSystems(model: EngineModel, opts: ModelInitOptions): System[] {
         return [
             new InputLockSystem().attach(model, this),
-            new GameStartSystem(opts.wordsProvider).attach(model, this),
+            new GameStartSystem(opts.wordsProvider, opts.user).attach(model, this),
             new LetterSelectSystem().attach(model, this),
             new CircleLetterScaleSystem().attach(model, this),
             new CircleLettersPlaceSystem().attach(model, this),
@@ -44,6 +47,7 @@ export class Engine {
             new SwapLettersSystem().attach(model, this),
             new WordLettersPlaceSystem().attach(model, this),
             new ExpiredSessionSystem().attach(model, this),
+            new WordAcceptSystem().attach(model, this),
         ];
     }
 

@@ -1,11 +1,13 @@
 import { System } from "db://assets/scripts/gameplay/systems/System";
-import { AnimatePreviewLettersEvent } from "db://assets/scripts/gameplay/entity/EventEntity";
-import { tween, UIOpacity, Vec3 } from "cc";
+import { AnimatePreviewLettersEvent, WordAcceptEvent } from "db://assets/scripts/gameplay/entity/EventEntity";
+import { Node, tween, UIOpacity, UITransform, Vec3 } from "cc";
+import { LetterComponent } from "db://assets/scripts/gameplay/components/LetterComponent";
 
 export class PreviewLetterAnimateSystem extends System {
 
     private readonly addLetterDuration = 0.08;
     private readonly removeLetterDuration = 0.16;
+    private readonly acceptLetterDuration = 0.16;
 
     private readonly letterOffset = 50;
 
@@ -19,6 +21,26 @@ export class PreviewLetterAnimateSystem extends System {
 
         this.listen("letter.preview.add", this.onPreviewLetterAdd);
         this.listen("letter.preview.remove", this.onPreviewLetterRemove);
+        this.listen("word.accept", this.onWordAccept);
+    }
+
+    private async onWordAccept(e: WordAcceptEvent) {
+        e.info.previewLetters.forEach(it => {
+            tween(it.view.node)
+                .to(this.acceptLetterDuration, { position: new Vec3(it.view.node.position.x, it.view.node.position.y + 100)})
+                .call(() => it.view.node.removeFromParent())
+                .start();
+
+            tween(it.view.node.getComponent(UIOpacity))
+                .to(this.acceptLetterDuration / 3, { opacity: 0})
+                .call(() => it.view.node.removeFromParent())
+                .start();
+        });
+
+        e.info.wordPlace.info.letters.forEach((it, i) => {
+            it.view.node.getComponent(LetterComponent).select();
+            it.view.node.getComponent(LetterComponent).setLabel(e.info.wordPlace.info.word[i].toUpperCase());
+        });
     }
 
     private onPreviewLetterRemove(e: AnimatePreviewLettersEvent) {

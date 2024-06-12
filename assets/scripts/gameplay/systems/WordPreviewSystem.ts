@@ -25,10 +25,6 @@ export class WordPreviewSystem extends System {
     }
 
     private onWordInput() {
-        this.letters.forEach(it => this.engine.emitEvent("letter.preview.remove", {
-            letter: it, index: 0
-        } as AnimatePreviewLettersEventInfo));
-
         this.letters.clear();
     }
 
@@ -46,6 +42,7 @@ export class WordPreviewSystem extends System {
         if (newWord.length > this.word.length) {
             const letter = this.createPreviewLetter(newWord.split("").pop());
             this.letters.push(letter);
+            this.engine.add(letter);
             this.model.layers.previewLetters.addChild(letter.view.node);
             this.engine.emitEvent("letter.preview.add", {
                 letter, index: this.letters.length - 1

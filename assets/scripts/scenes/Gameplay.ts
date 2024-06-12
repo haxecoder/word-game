@@ -23,7 +23,8 @@ export class Gameplay extends Component {
         );
 
         this.engine.init(model, {
-            wordsProvider: app.levels
+            wordsProvider: app.levels,
+            user: app.storage
         });
 
         this.engine.start();

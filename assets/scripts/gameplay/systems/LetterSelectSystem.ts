@@ -18,7 +18,7 @@ export class LetterSelectSystem extends System {
     constructor() {
         super();
 
-        this.listen("game.start", this.onGameStarted);
+        this.listen("game.ready", this.onGameReady);
     }
 
     public override onEntityAdded(entity: Entity) {
@@ -32,7 +32,7 @@ export class LetterSelectSystem extends System {
         }
     }
 
-    private onGameStarted() {
+    private onGameReady() {
         this.model.layers.touch.on(NodeEventType.TOUCH_START, this.onPointerMove.bind(this));
         this.model.layers.touch.on(NodeEventType.TOUCH_MOVE, this.onPointerMove.bind(this));
         this.model.layers.touch.on(NodeEventType.TOUCH_END, this.onPointerUp.bind(this));
@@ -40,13 +40,13 @@ export class LetterSelectSystem extends System {
     }
 
     private onPointerUp() {
+        if (this.selectedLetters.length) {
+            this.emitEvent("word.input", this.selectedLetters.slice());
+        }
+
         this.selectedLetters.clear();
         this.letters.forEach(it => this.intersectionStatuses.set(it, "idle"));
         this.emitEvent("letters.downscale", this.letters);
-
-        if (this.letters.length) {
-            this.emitEvent("word.input", this.letters);
-        }
     }
 
     private onPointerMove(e: EventTouch) {

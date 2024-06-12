@@ -1,23 +1,30 @@
+import { IUserDataRepository } from "db://assets/scripts/services/IUserDataRepository";
+
 type LocalStorageKey = "user.profile.v1" | "sessionId";
 
-type UserData = {
+export type UserData = {
     currentLevel: number;
     solvedWords: string[];
-    sessionId: string;
 };
 
-export class StorageService {
+export class StorageService implements IUserDataRepository {
 
     private readonly sessionId = Date.now().toString();
+
+    private profileCompiler = (data: string): UserData => JSON.parse(data);
+    private profileDecompiler = (data: UserData): string => JSON.stringify(data);
 
     public async loadUserData() {
         const data = this.getUserData("user.profile.v1") || {
             currentLevel: 1,
             solvedWords: [],
-            sessionId: this.sessionId
-        };
+        } as UserData;
 
         return data;
+    }
+
+    public async saveUserData(data: UserData) {
+        this.setLocalStorageItem("user.profile.v1", this.profileDecompiler(data));
     }
 
     public async isSessionActive() {
@@ -35,7 +42,7 @@ export class StorageService {
 
     private getUserData(key: LocalStorageKey): UserData {
         const data = this.getLocalStorageItem(key);
-        return JSON.parse(data);
+        return this.profileCompiler(data);
     }
 
     private getLocalStorageItem(key: LocalStorageKey): string | null {

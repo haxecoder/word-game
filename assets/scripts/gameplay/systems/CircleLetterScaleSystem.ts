@@ -6,7 +6,6 @@ import { LetterComponent } from "db://assets/scripts/gameplay/components/LetterC
 
 type ScaleStatus = "idle" | "upscale" | "downscale";
 
-
 export class CircleLetterScaleSystem extends System {
 
     private readonly upscaleDuration = 0.12;
@@ -15,7 +14,6 @@ export class CircleLetterScaleSystem extends System {
     private readonly upscaleScale = 1.2;
     private readonly upscaleSelectRatio = 0.8;
     private readonly downscaleDeselectRatio = 0.3;
-
 
     private statuses: Map<LetterEntity, ScaleStatus> = new Map<LetterEntity, ScaleStatus>();
 

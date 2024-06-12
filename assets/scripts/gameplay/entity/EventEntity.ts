@@ -1,5 +1,5 @@
 import { Vec2 } from "cc";
-import { LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
+import { LetterEntity, WordPlaceEntity } from "db://assets/scripts/gameplay/entity/Entity";
 
 export type EventType =
     "game.start" |
@@ -9,6 +9,7 @@ export type EventType =
     "letters.upscale" | // LetterEntity[]
     "letters.downscale" | // LetterEntity[]
     "word.input" | // LetterEntity[]
+    "word.accept" | // WordAcceptEvent
 
     "words.ready" | // string[]
 
@@ -27,6 +28,12 @@ export type EventEntity = {
 
 export type ChangeSelectedLettersEvent = Modify<EventEntity, { info: ChangeSelectedLettersEventInfo }>;
 export type AnimatePreviewLettersEvent = Modify<EventEntity, { info: AnimatePreviewLettersEventInfo }>;
+export type WordAcceptEvent = Modify<EventEntity, { info: WordAcceptEventInfo }>
+
+export type WordAcceptEventInfo = {
+    previewLetters: LetterEntity[];
+    wordPlace: WordPlaceEntity;
+}
 
 export type ChangeSelectedLettersEventInfo = {
     letters: LetterEntity[];

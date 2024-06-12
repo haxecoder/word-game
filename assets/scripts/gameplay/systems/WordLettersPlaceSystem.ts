@@ -23,6 +23,7 @@ export class WordLettersPlaceSystem extends System {
         const wordsHeight = - Math.floor((this.letterSize + this.letterOffset) * (words.length - 1));
 
         const wordsContainer = new Node();
+        wordsContainer.addComponent(UITransform);
 
         words.forEach((word, wordIndex) => {
             const wordLetters: LetterEntity[] = [];
@@ -61,8 +62,6 @@ export class WordLettersPlaceSystem extends System {
         } else {
             wordsContainer.setPosition(0, - wordsHeight / 2);
         }
-
-
 
         this.model.layers.wordsLetters.addChild(wordsContainer);
     }

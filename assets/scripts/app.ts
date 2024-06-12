@@ -10,6 +10,7 @@ class App {
 
     public async start() {
         await this.storage.updateSessionId();
+
         document.addEventListener("visibilitychange", async () => {
             const sessionIsActive = await this.storage.isSessionActive();
             if (!sessionIsActive) {
