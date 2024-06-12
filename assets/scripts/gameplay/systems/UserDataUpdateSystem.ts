@@ -7,6 +7,7 @@ export class UserDataUpdateSystem extends System {
         super();
 
         this.listen("word.accept", this.saveUserData);
+        this.listen("level.complete", this.saveUserData);
     }
 
     private async saveUserData() {

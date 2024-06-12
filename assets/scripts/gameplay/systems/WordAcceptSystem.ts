@@ -44,9 +44,14 @@ export class WordAcceptSystem extends System {
             this.engine.remove(it);
         });
 
+        this.model.user.solvedWords.push(word);
         this.engine.emitEvent("word.accept", { wordPlace, previewLetters } as WordAcceptEventInfo);
 
-        this.model.user.solvedWords.push(word);
+        if (this.model.user.solvedWords.length === this.wordsPlaces.length) {
+            this.model.user.solvedWords.clear();
+            this.model.user.currentLevel++;
+            this.engine.emitEvent("level.complete");
+        }
     }
 
     private removeLetterPreviews(previewLetters: LetterEntity[]) {

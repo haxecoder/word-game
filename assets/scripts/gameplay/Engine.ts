@@ -17,6 +17,8 @@ import { ExpiredSessionSystem } from "db://assets/scripts/gameplay/systems/Expir
 import { WordAcceptSystem } from "db://assets/scripts/gameplay/systems/WordAcceptSystem";
 import { IUserDataRepository } from "db://assets/scripts/services/IUserDataRepository";
 import { WordRepeatSystem } from "db://assets/scripts/gameplay/systems/WordRepeatSystem";
+import { LevelCompleteSystem } from "db://assets/scripts/gameplay/systems/LevelCompleteSystem";
+import { UserDataUpdateSystem } from "db://assets/scripts/gameplay/systems/UserDataUpdateSystem";
 
 type ModelInitOptions = {
     wordsProvider: ILevelWordsProvider;
@@ -50,6 +52,8 @@ export class Engine {
             new ExpiredSessionSystem().attach(model, this),
             new WordAcceptSystem().attach(model, this),
             new WordRepeatSystem().attach(model, this),
+            new LevelCompleteSystem().attach(model, this),
+            new UserDataUpdateSystem(opts.user).attach(model, this),
         ];
     }
 

@@ -14,6 +14,8 @@ export type EventType =
 
     "words.ready" | // string[]
 
+    "level.complete" |
+
     "letter.preview.add" | // AnimatePreviewLettersEvent
     "letter.preview.remove" | // AnimatePreviewLettersEvent
 

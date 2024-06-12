@@ -17,6 +17,7 @@ export class GameStartSystem extends System {
         this.emitEvent("input.lock");
 
         this.model.user = await this.user.loadUserData();
+        await this.user.saveUserData(this.model.user);
 
         this.engine.add(this.model.entities.createSwapButton(this.model.prefabs.getSwapButton()));
 
