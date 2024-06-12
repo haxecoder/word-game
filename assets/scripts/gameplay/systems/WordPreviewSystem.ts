@@ -9,7 +9,7 @@ export class WordPreviewSystem extends System {
 
     private readonly tweenLettersContainerDuration = 0.12;
     private readonly lettersOffset = 50;
-    private readonly defaultPreviewContainerYPosition = 47;
+    private readonly defaultPreviewContainerYPosition = 30;
 
     private letters: LetterEntity[] = [];
 

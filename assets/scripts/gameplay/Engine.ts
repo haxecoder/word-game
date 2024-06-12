@@ -13,6 +13,7 @@ import { PreviewLetterAnimateSystem } from "db://assets/scripts/gameplay/systems
 import { SwapLettersSystem } from "db://assets/scripts/gameplay/systems/SwapLettersSystem";
 import { ILevelWordsProvider } from "db://assets/scripts/services/ILevelWordsProvider";
 import { WordLettersPlaceSystem } from "db://assets/scripts/gameplay/systems/WordLettersPlaceSystem";
+import { ExpiredSessionSystem } from "db://assets/scripts/gameplay/systems/ExpiredSessionSystem";
 
 type ModelInitOptions = {
     wordsProvider: ILevelWordsProvider;
@@ -42,6 +43,7 @@ export class Engine {
             new PreviewLetterAnimateSystem().attach(model, this),
             new SwapLettersSystem().attach(model, this),
             new WordLettersPlaceSystem().attach(model, this),
+            new ExpiredSessionSystem().attach(model, this),
         ];
     }
 
