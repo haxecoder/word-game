@@ -24,6 +24,9 @@ export class EngineLayers extends Component {
     public windowLayer: Node;
 
     @property(Node)
+    public errorWindowLayer: Node;
+
+    @property(Node)
     public uiLayer: Node;
 
 }

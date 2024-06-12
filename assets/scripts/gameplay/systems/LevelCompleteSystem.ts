@@ -1,5 +1,6 @@
 import { System } from "db://assets/scripts/gameplay/systems/System";
-import { WinWindow } from "db://assets/scripts/gameplay/components/WinWindow";
+import { locale } from "db://assets/scripts/locale";
+import { BaseWindow } from "db://assets/scripts/gameplay/components/BaseWindow";
 
 export class LevelCompleteSystem extends System {
 
@@ -18,9 +19,14 @@ export class LevelCompleteSystem extends System {
         const nextLevel = this.model.user.currentLevel;
         const currentLevel = nextLevel - 1;
 
-        const window = windowNode.getComponent(WinWindow)
-        window.updateTexts(currentLevel, nextLevel);
-        window.setAction(() => {
+        const baseWindowComponent = windowNode.getComponent(BaseWindow);
+
+        const textActionButton = locale.translate("window.win.btnNextLevel", nextLevel.toString());
+        const textBody = locale.translate("window.win.txtBody");
+        const textHeader = locale.translate("window.win.txtHeader", currentLevel.toString());
+
+        baseWindowComponent.updateTexts(textHeader, textBody, textActionButton);
+        baseWindowComponent.setAction(() => {
             this.engine.emitEvent("level.next");
             this.model.layers.windowLayer.removeChild(windowNode);
         });

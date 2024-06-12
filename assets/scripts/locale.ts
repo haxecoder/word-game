@@ -2,7 +2,10 @@ type LocaleKey =
     "ui.currentLevel" |
     "window.win.txtHeader" |
     "window.win.txtBody" |
-    "window.win.btnNextLevel";
+    "window.win.btnNextLevel" |
+    "window.error.session.header" |
+    "window.error.session.body" |
+    "window.error.session.btnAction";
 
 class AppLocale {
 
@@ -22,6 +25,9 @@ class AppLocale {
         this.memo.set("window.win.txtBody", "Изумительно!");
         this.memo.set("window.win.btnNextLevel", "Уровень %v");
         this.memo.set("ui.currentLevel", "Уровень %v");
+        this.memo.set("window.error.session.btnAction", "Обновить");
+        this.memo.set("window.error.session.header", "Две вкладки\nс игрой?");
+        this.memo.set("window.error.session.body", "Похоже, игра открыта в\nнескольких вкладках браузера.\nЧтобы продолжить играть в\nэтой вкладке, обновите\nстраницу.");
     }
 
     public translate(key: LocaleKey, value?: string): string {

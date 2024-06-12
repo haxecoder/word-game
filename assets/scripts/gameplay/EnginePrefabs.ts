@@ -21,7 +21,14 @@ export class EnginePrefabs extends Component {
     private winWindow: Prefab;
 
     @property(Prefab)
+    private sessionErrorWindow: Prefab;
+
+    @property(Prefab)
     private gameUI: Prefab;
+
+    public getSessionErrorWindow(): Node {
+        return instantiate(this.sessionErrorWindow);
+    }
 
     public getGameUI(): Node {
         return instantiate(this.gameUI);
