@@ -1,5 +1,5 @@
 import { Node } from "cc";
-import { LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
+import { Entity, LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
 
 export class EntityFactory {
 
@@ -27,4 +27,10 @@ export class EntityFactory {
         };
     }
 
+    public createSwapButton(node: Node): Entity {
+        return {
+            type: "button.swap",
+            view: { node }
+        };
+    }
 }

@@ -17,4 +17,7 @@ export class EngineLayers extends Component {
     @property(Node)
     public previewLetters: Node;
 
+    @property(Node)
+    public swapButton: Node;
+
 }

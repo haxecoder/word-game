@@ -11,6 +11,19 @@ export class EnginePrefabs extends Component {
     @property(Prefab)
     private previewLetter: Prefab;
 
+    @property(Prefab)
+    private wordLetter: Prefab;
+
+    @property(Prefab)
+    private buttonSwap: Prefab;
+
+    public getSwapButton(): Node {
+        return instantiate(this.buttonSwap);
+    }
+
+    public getWordLetter(): Node {
+        return instantiate(this.wordLetter);
+    }
 
     public getCircleLetter(): Node {
         return instantiate(this.circleLetter);

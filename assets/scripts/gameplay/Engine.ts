@@ -10,6 +10,7 @@ import { CircleLettersPlaceSystem } from "db://assets/scripts/gameplay/systems/C
 import { DrawWordLineSystem } from "db://assets/scripts/gameplay/systems/DrawWordLineSystem";
 import { WordPreviewSystem } from "db://assets/scripts/gameplay/systems/WordPreviewSystem";
 import { PreviewLetterAnimateSystem } from "db://assets/scripts/gameplay/systems/PreviewLetterAnimateSystem";
+import { SwapLettersSystem } from "db://assets/scripts/gameplay/systems/SwapLettersSystem";
 
 export class Engine {
 
@@ -33,6 +34,7 @@ export class Engine {
             new DrawWordLineSystem().attach(model, this),
             new WordPreviewSystem().attach(model, this),
             new PreviewLetterAnimateSystem().attach(model, this),
+            new SwapLettersSystem().attach(model, this),
         ];
     }
 
@@ -64,6 +66,6 @@ export class Engine {
     }
 
     public getEntitiesByType(e: EntityType): Entity[] {
-        return this.entities.filter(it => it.type === e);
+        return this.entities.filter(it => it.type === e).slice();
     }
 }

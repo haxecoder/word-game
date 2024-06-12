@@ -12,6 +12,8 @@ export class GameStartSystem extends System {
     private async onGameStart() {
         this.emitEvent("input.lock");
 
+        this.engine.add(this.model.entities.createSwapButton(this.model.prefabs.getSwapButton()))
+
         const wordsData = await app.loader.loadLevel(1);
 
         const words: string[] = wordsData.json["words"]["ru"];
@@ -19,5 +21,6 @@ export class GameStartSystem extends System {
         this.emitEvent("words.ready", words);
 
         this.emitEvent("input.unlock");
+        this.emitEvent("game.ready");
     }
 }

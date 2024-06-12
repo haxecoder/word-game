@@ -3,6 +3,7 @@ import { LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
 
 export type EventType =
     "game.start" |
+    "game.ready" |
 
     "letters.changeSelected" | // ChangeSelectedLettersEvent
     "letters.upscale" | // LetterEntity[]
