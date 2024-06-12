@@ -15,10 +15,9 @@ export class GameStartSystem extends System {
         this.engine.add(this.model.entities.createSwapButton(this.model.prefabs.getSwapButton()));
 
         const words = await this.wordsProvider.getLevelWords(1);
+        this.emitEvent("words.ready", words.slice());
 
-        this.emitEvent("words.ready", words);
-
-        this.emitEvent("input.unlock");
         this.emitEvent("game.ready");
+        this.emitEvent("input.unlock");
     }
 }

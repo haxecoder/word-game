@@ -1,5 +1,5 @@
 import { Node } from "cc";
-import { Entity, LetterEntity } from "db://assets/scripts/gameplay/entity/Entity";
+import { Entity, LetterEntity, WordPlaceEntity } from "db://assets/scripts/gameplay/entity/Entity";
 
 export class EntityFactory {
 
@@ -9,6 +9,13 @@ export class EntityFactory {
             view: { node },
             info: { letter }
         };
+    }
+
+    public createWordPlace(word: string, letters: LetterEntity[]): WordPlaceEntity {
+        return {
+            type: "word.place",
+            info: { word, letters }
+        }
     }
 
     public createWordLetter(node: Node, letter: string): LetterEntity {

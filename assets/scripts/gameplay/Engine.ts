@@ -12,6 +12,7 @@ import { WordPreviewSystem } from "db://assets/scripts/gameplay/systems/WordPrev
 import { PreviewLetterAnimateSystem } from "db://assets/scripts/gameplay/systems/PreviewLetterAnimateSystem";
 import { SwapLettersSystem } from "db://assets/scripts/gameplay/systems/SwapLettersSystem";
 import { ILevelWordsProvider } from "db://assets/scripts/services/ILevelWordsProvider";
+import { WordLettersPlaceSystem } from "db://assets/scripts/gameplay/systems/WordLettersPlaceSystem";
 
 type ModelInitOptions = {
     wordsProvider: ILevelWordsProvider;
@@ -40,6 +41,7 @@ export class Engine {
             new WordPreviewSystem().attach(model, this),
             new PreviewLetterAnimateSystem().attach(model, this),
             new SwapLettersSystem().attach(model, this),
+            new WordLettersPlaceSystem().attach(model, this),
         ];
     }
 

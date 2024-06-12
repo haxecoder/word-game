@@ -9,7 +9,7 @@ export class WordPreviewSystem extends System {
 
     private readonly tweenLettersContainerDuration = 0.12;
     private readonly lettersOffset = 50;
-    private readonly defaultPreviewContainerPosition = 47;
+    private readonly defaultPreviewContainerYPosition = 47;
 
     private letters: LetterEntity[] = [];
 
@@ -40,7 +40,7 @@ export class WordPreviewSystem extends System {
         }
 
         if (newWord.length === 1 && this.word.length === 0) {
-            this.model.layers.previewLetters.setPosition(0, this.defaultPreviewContainerPosition);
+            this.model.layers.previewLetters.setPosition(0, this.defaultPreviewContainerYPosition);
         }
 
         if (newWord.length > this.word.length) {
@@ -58,7 +58,10 @@ export class WordPreviewSystem extends System {
         }
 
         tween(this.model.layers.previewLetters)
-            .to(this.tweenLettersContainerDuration, { position: new Vec3((- (this.letters.length - 1) * this.lettersOffset) / 2, this.defaultPreviewContainerPosition) })
+            .to(this.tweenLettersContainerDuration, { position: new Vec3((
+                - (this.letters.length - 1) * this.lettersOffset) / 2,
+                    this.defaultPreviewContainerYPosition
+                ) })
             .start();
     }
 

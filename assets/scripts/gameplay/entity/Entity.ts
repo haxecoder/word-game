@@ -4,6 +4,7 @@ type Modify<T, R> = Omit<T, keyof R> & R;
 
 export type EntityType =
     "button.swap" |
+    "word.place" |
     "letter.preview" |
     "letter.word" |
     "letter.circle";
@@ -19,6 +20,12 @@ export type Entity = {
 }
 
 export type LetterEntity = Modify<Entity, { info: LetterEntityInfo }>;
+export type WordPlaceEntity = Modify<Entity, { info: WordPlaceEntityInfo }>;
+
+type WordPlaceEntityInfo = {
+    letters: LetterEntity[],
+    word: string
+}
 
 type LetterEntityInfo = {
     letter: string;
