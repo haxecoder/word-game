@@ -30,13 +30,13 @@ export class WordAcceptSystem extends System {
         const wordPlace = this.wordsPlaces.find(it => it.info.word === word);
 
         if (!wordPlace) {
-            previewLetters.forEach(it => {
-                this.engine.remove(it);
-                this.engine.emitEvent("letter.preview.remove", {
-                    letter: it, index: 0
-                } as AnimatePreviewLettersEventInfo)
-            });
+            this.removeLetterPreviews(previewLetters);
+            return;
+        }
 
+        if (this.model.user.solvedWords.includes(word)) {
+            this.removeLetterPreviews(previewLetters);
+            this.engine.emitEvent("word.repeat", wordPlace);
             return;
         }
 
@@ -47,5 +47,14 @@ export class WordAcceptSystem extends System {
         this.engine.emitEvent("word.accept", { wordPlace, previewLetters } as WordAcceptEventInfo);
 
         this.model.user.solvedWords.push(word);
+    }
+
+    private removeLetterPreviews(previewLetters: LetterEntity[]) {
+        previewLetters.forEach(it => {
+            this.engine.remove(it);
+            this.engine.emitEvent("letter.preview.remove", {
+                letter: it, index: 0
+            } as AnimatePreviewLettersEventInfo)
+        });
     }
 }

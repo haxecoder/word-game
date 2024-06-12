@@ -16,6 +16,7 @@ import { WordLettersPlaceSystem } from "db://assets/scripts/gameplay/systems/Wor
 import { ExpiredSessionSystem } from "db://assets/scripts/gameplay/systems/ExpiredSessionSystem";
 import { WordAcceptSystem } from "db://assets/scripts/gameplay/systems/WordAcceptSystem";
 import { IUserDataRepository } from "db://assets/scripts/services/IUserDataRepository";
+import { WordRepeatSystem } from "db://assets/scripts/gameplay/systems/WordRepeatSystem";
 
 type ModelInitOptions = {
     wordsProvider: ILevelWordsProvider;
@@ -48,6 +49,7 @@ export class Engine {
             new WordLettersPlaceSystem().attach(model, this),
             new ExpiredSessionSystem().attach(model, this),
             new WordAcceptSystem().attach(model, this),
+            new WordRepeatSystem().attach(model, this),
         ];
     }
 

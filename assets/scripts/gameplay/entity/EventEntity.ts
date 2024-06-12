@@ -10,6 +10,7 @@ export type EventType =
     "letters.downscale" | // LetterEntity[]
     "word.input" | // LetterEntity[]
     "word.accept" | // WordAcceptEvent
+    "word.repeat" | // WordPlaceEntity
 
     "words.ready" | // string[]
 
