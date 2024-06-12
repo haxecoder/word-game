@@ -32,8 +32,15 @@ export class WordLettersPlaceSystem extends System {
                 const wordLetterNode = this.model.prefabs.getWordLetter();
                 const wordLetter = this.model.entities.createWordLetter(wordLetterNode, letter);
 
-                wordLetterNode.getComponent(LetterComponent).setLabel("");
-                wordLetterNode.getComponent(LetterComponent).deselect();
+                const letterComponent = wordLetterNode.getComponent(LetterComponent);
+
+                if (this.model.user.solvedWords.includes(word)) {
+                    letterComponent.select();
+                    letterComponent.setLabel(letter.toUpperCase());
+                } else {
+                    letterComponent.setLabel("");
+                    letterComponent.deselect();
+                }
 
                 wordLetters.push(wordLetter);
             });
