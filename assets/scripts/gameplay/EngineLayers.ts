@@ -20,4 +20,10 @@ export class EngineLayers extends Component {
     @property(Node)
     public swapButton: Node;
 
+    @property(Node)
+    public windowLayer: Node;
+
+    @property(Node)
+    public uiLayer: Node;
+
 }

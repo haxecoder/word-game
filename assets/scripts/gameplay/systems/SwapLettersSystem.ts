@@ -8,13 +8,18 @@ export class SwapLettersSystem extends System {
 
     private readonly flyDuration = 0.26;
     private swapButton: Entity;
-    private combinations: string[] = [];
 
     constructor() {
         super();
 
         this.listen("game.ready", this.onGameReady);
         this.listen("words.ready", this.onWordsReady);
+        this.listen("level.complete", this.onLevelComplete);
+    }
+
+    private onLevelComplete() {
+        this.swapButton.view.node.off(NodeEventType.TOUCH_END);
+        this.swapButton = null;
     }
 
     private onWordsReady(e: EventEntity) {

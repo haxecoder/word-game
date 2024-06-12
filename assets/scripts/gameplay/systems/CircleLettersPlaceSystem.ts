@@ -15,6 +15,11 @@ export class CircleLettersPlaceSystem extends System {
         super();
 
         this.listen("words.ready", this.onWordsReady);
+        this.listen("level.complete", this.onLevelComplete);
+    }
+
+    private onLevelComplete() {
+        this.letters.clear();
     }
 
     private onWordsReady(e: EventEntity) {

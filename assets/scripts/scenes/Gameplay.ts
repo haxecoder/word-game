@@ -1,4 +1,4 @@
-import { _decorator, Component, director } from 'cc';
+import { _decorator, Component } from 'cc';
 import { Engine } from "db://assets/scripts/gameplay/Engine";
 import { EntityFactory } from "db://assets/scripts/gameplay/entity/EntityFactory";
 import { EnginePrefabs } from "db://assets/scripts/gameplay/EnginePrefabs";

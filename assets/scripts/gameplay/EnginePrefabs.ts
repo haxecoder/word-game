@@ -17,6 +17,20 @@ export class EnginePrefabs extends Component {
     @property(Prefab)
     private buttonSwap: Prefab;
 
+    @property(Prefab)
+    private winWindow: Prefab;
+
+    @property(Prefab)
+    private gameUI: Prefab;
+
+    public getGameUI(): Node {
+        return instantiate(this.gameUI);
+    }
+
+    public getWinWindow(): Node {
+        return instantiate(this.winWindow);
+    }
+
     public getSwapButton(): Node {
         return instantiate(this.buttonSwap);
     }

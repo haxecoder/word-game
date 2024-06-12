@@ -18,6 +18,11 @@ export class WordPreviewSystem extends System {
 
         this.listen("letters.changeSelected", this.onChangeSelectedLetters);
         this.listen("word.input", this.onWordInput);
+        this.listen("level.complete", this.onLevelComplete);
+    }
+
+    private onLevelComplete() {
+        this.letters.clear();
     }
 
     private get word(): string {

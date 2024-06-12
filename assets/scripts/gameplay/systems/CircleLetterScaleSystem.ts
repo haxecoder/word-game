@@ -22,6 +22,11 @@ export class CircleLetterScaleSystem extends System {
 
         this.listen("letters.upscale", this.onLetterUpscale);
         this.listen("letters.downscale", this.onLetterDownscale);
+        this.listen("level.complete", this.onLevelComplete);
+    }
+
+    private onLevelComplete() {
+        this.statuses.clear();
     }
 
     private onLetterUpscale(e: EventEntity) {

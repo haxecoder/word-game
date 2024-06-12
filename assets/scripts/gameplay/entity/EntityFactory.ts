@@ -40,4 +40,11 @@ export class EntityFactory {
             view: { node }
         };
     }
+
+    public createGameUI(node: Node): Entity {
+        return {
+            type: "game.ui",
+            view: { node }
+        };
+    }
 }

@@ -3,6 +3,7 @@ import { Node } from "cc";
 type Modify<T, R> = Omit<T, keyof R> & R;
 
 export type EntityType =
+    "game.ui" |
     "button.swap" |
     "word.place" |
     "letter.preview" |

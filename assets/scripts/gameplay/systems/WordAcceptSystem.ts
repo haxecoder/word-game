@@ -14,6 +14,11 @@ export class WordAcceptSystem extends System {
         super();
 
         this.listen("word.input", this.onWordInput);
+        this.listen("level.complete", this.onLevelComplete);
+    }
+
+    private onLevelComplete() {
+        this.wordsPlaces.clear();
     }
 
     public override onEntityAdded(entity: Entity) {

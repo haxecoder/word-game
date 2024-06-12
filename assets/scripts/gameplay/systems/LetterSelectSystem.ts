@@ -19,6 +19,18 @@ export class LetterSelectSystem extends System {
         super();
 
         this.listen("game.ready", this.onGameReady);
+        this.listen("level.complete", this.onLevelComplete);
+    }
+
+    private onLevelComplete() {
+        this.letters.clear();
+        this.selectedLetters.clear();
+        this.intersectionStatuses.clear();
+
+        this.model.layers.touch.off(NodeEventType.TOUCH_START);
+        this.model.layers.touch.off(NodeEventType.TOUCH_MOVE);
+        this.model.layers.touch.off(NodeEventType.TOUCH_END);
+        this.model.layers.touch.off(NodeEventType.TOUCH_CANCEL);
     }
 
     public override onEntityAdded(entity: Entity) {

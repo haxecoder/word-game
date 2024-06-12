@@ -11,6 +11,17 @@ export class GameStartSystem extends System {
         super();
 
         this.listen("game.start", this.onGameStart);
+        this.listen("level.next", this.onLevelNext);
+    }
+
+    private async onLevelNext() {
+        this.emitEvent("input.lock");
+        const words = await this.wordsProvider.getLevelWords(this.model.user.currentLevel);
+        this.emitEvent("words.ready", words.slice());
+        this.engine.add(this.model.entities.createSwapButton(this.model.prefabs.getSwapButton()));
+
+        this.emitEvent("game.ready");
+        this.emitEvent("input.unlock");
     }
 
     private async onGameStart() {
@@ -20,6 +31,7 @@ export class GameStartSystem extends System {
         await this.user.saveUserData(this.model.user);
 
         this.engine.add(this.model.entities.createSwapButton(this.model.prefabs.getSwapButton()));
+        this.engine.add(this.model.entities.createGameUI(this.model.prefabs.getGameUI()));
 
         const words = await this.wordsProvider.getLevelWords(this.model.user.currentLevel);
         this.emitEvent("words.ready", words.slice());

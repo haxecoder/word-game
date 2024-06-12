@@ -19,6 +19,7 @@ import { IUserDataRepository } from "db://assets/scripts/services/IUserDataRepos
 import { WordRepeatSystem } from "db://assets/scripts/gameplay/systems/WordRepeatSystem";
 import { LevelCompleteSystem } from "db://assets/scripts/gameplay/systems/LevelCompleteSystem";
 import { UserDataUpdateSystem } from "db://assets/scripts/gameplay/systems/UserDataUpdateSystem";
+import { GameUISystem } from "db://assets/scripts/gameplay/systems/GameUISystem";
 
 type ModelInitOptions = {
     wordsProvider: ILevelWordsProvider;
@@ -54,7 +55,16 @@ export class Engine {
             new WordRepeatSystem().attach(model, this),
             new LevelCompleteSystem().attach(model, this),
             new UserDataUpdateSystem(opts.user).attach(model, this),
+            new GameUISystem().attach(model, this),
         ];
+    }
+
+    public clear() {
+        this.entities.clear();
+
+        this.model.layers.previewLetters.removeAllChildren();
+        this.model.layers.wordsLetters.removeAllChildren();
+        this.model.layers.circleLetters.removeAllChildren();
     }
 
     public emitEvent(type: EventType, info?: any) {

@@ -1,5 +1,5 @@
 import { LoaderService } from "db://assets/scripts/services/LoaderService";
-import { StorageService } from "db://assets/scripts/services/StorageService";
+import { StorageService, UserData } from "db://assets/scripts/services/StorageService";
 import { LevelDataProviderService } from "db://assets/scripts/services/LevelDataProviderService";
 import { Event, director } from "cc";
 

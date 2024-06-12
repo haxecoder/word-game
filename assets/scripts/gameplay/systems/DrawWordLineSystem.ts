@@ -13,6 +13,12 @@ export class DrawWordLineSystem extends System {
 
         this.listen("letters.changeSelected", this.onChangeSelectedLetters);
         this.listen("word.input", this.onWordInput);
+        this.listen("level.complete", this.onLevelComplete);
+    }
+
+    private onLevelComplete() {
+        this.savedLetters.clear();
+        this.savedPointer = new Vec2();
     }
 
     private onWordInput() {
