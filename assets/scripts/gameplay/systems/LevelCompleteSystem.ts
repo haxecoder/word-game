@@ -1,6 +1,7 @@
 import { System } from "db://assets/scripts/gameplay/systems/System";
 import { locale } from "db://assets/scripts/locale";
 import { BaseWindow } from "db://assets/scripts/gameplay/components/BaseWindow";
+import { delay } from "db://assets/scripts/utils/delay";
 
 export class LevelCompleteSystem extends System {
 
@@ -11,6 +12,10 @@ export class LevelCompleteSystem extends System {
     }
 
     private async onLevelComplete() {
+        this.engine.emitEvent("input.lock");
+        await delay(1000);
+        this.engine.emitEvent("input.unlock");
+
         this.engine.clear();
 
         const windowNode = this.model.prefabs.getWinWindow();

@@ -65,6 +65,7 @@ export class Engine {
         this.model.layers.previewLetters.removeAllChildren();
         this.model.layers.wordsLetters.removeAllChildren();
         this.model.layers.circleLetters.removeAllChildren();
+        this.model.layers.swapButton.removeAllChildren();
     }
 
     public emitEvent(type: EventType, info?: any) {
